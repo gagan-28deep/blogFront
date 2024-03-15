@@ -1,6 +1,7 @@
 import React from "react";
 
 function Signup() {
+  console.log("signup")
   return (
     <section>
       <div className="grid grid-cols-1 lg:grid-cols-2">

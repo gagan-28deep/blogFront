@@ -1,6 +1,7 @@
-import React from 'react'
+import React from "react";
 
 function Login() {
+  console.log("loginnn");
   return (
     <section className="rounded-md bg-black/70 p-2">
       <div className="flex items-center justify-center bg-white px-4 py-10 sm:px-6 sm:py-16 lg:px-8">
@@ -19,9 +20,11 @@ function Login() {
               />
             </svg>
           </div>
-          <h2 className="text-2xl font-bold leading-tight text-black">Sign in to your account</h2>
+          <h2 className="text-2xl font-bold leading-tight text-black">
+            Sign in to your account
+          </h2>
           <p className="mt-2text-sm text-gray-600 ">
-            Don&apos;t have an account?{' '}
+            Don&apos;t have an account?{" "}
             <a
               href="#"
               title=""
@@ -33,9 +36,12 @@ function Login() {
           <form action="#" method="POST" className="mt-8">
             <div className="space-y-5">
               <div>
-                <label htmlFor="" className="text-base font-medium text-gray-900">
-                  {' '}
-                  Email address{' '}
+                <label
+                  htmlFor=""
+                  className="text-base font-medium text-gray-900"
+                >
+                  {" "}
+                  Email address{" "}
                 </label>
                 <div className="mt-2">
                   <input
@@ -47,13 +53,20 @@ function Login() {
               </div>
               <div>
                 <div className="flex items-center justify-between">
-                  <label htmlFor="" className="text-base font-medium text-gray-900">
-                    {' '}
-                    Password{' '}
+                  <label
+                    htmlFor=""
+                    className="text-base font-medium text-gray-900"
+                  >
+                    {" "}
+                    Password{" "}
                   </label>
-                  <a href="#" title="" className="text-sm font-semibold text-black hover:underline">
-                    {' '}
-                    Forgot password?{' '}
+                  <a
+                    href="#"
+                    title=""
+                    className="text-sm font-semibold text-black hover:underline"
+                  >
+                    {" "}
+                    Forgot password?{" "}
                   </a>
                 </div>
                 <div className="mt-2">
@@ -111,7 +124,7 @@ function Login() {
         </div>
       </div>
     </section>
-  )
+  );
 }
 
-export default Login
+export default Login;

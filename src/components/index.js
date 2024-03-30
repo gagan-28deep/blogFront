@@ -1,6 +1,6 @@
-import Heder from "./Header/Heder";
+import Header  from "./Header/Header";
 import Login from "./account/Login";
 import Signup from "./account/Signup";
 import Footer from "./Footer/Footer";
 
-export { Heder, Login, Signup, Footer };
+export { Header, Login, Signup, Footer };

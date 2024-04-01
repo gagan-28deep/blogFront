@@ -30,7 +30,6 @@ const usePosts = () => {
     try {
       dispath(getSinglePostLoading())
       const response = await getSinglePostById(id)
-      console.log(response);
       dispath(getSinglePostData(response?.data?.data))
     } catch (error) {
       dispath(getSinglePostError(error?.message))

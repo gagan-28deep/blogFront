@@ -23,6 +23,14 @@ const Home = () => {
   const posts = useSelector((state) => state?.post?.allPostsData);
   const isPostsLoading = useSelector((state) => state?.post?.isPostsLoading);
 
+  if(posts?.length === 0 || !posts){
+    return (
+      <h2>
+        No Posts Yet...
+      </h2>
+    )
+  }
+
   return (
     <div className="grid gap-60 gap-y-10 py-6 md:grid-cols-2 lg:grid-cols-3">
       {isPostsLoading === true ? (

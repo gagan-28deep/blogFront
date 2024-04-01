@@ -1,7 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 
 export default function Header() {
+  const user = useSelector((state) => state.auth.userData);
   return (
     <header className="shadow sticky z-50 top-0">
       <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5">
@@ -56,30 +58,64 @@ export default function Header() {
                   Write
                 </NavLink>
               </li>
-              <li>
-                <NavLink
-                  to="/login"
-                  className={({ isActive }) =>
-                    `block py-2 pr-4 pl-3 duration-200 ${
-                      isActive ? "text-orange-700" : "text-gray-700"
-                    } border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0 text-lg font-bold`
-                  }
-                >
-                  Login
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/signup"
-                  className={({ isActive }) =>
-                    `block py-2 pr-4 pl-3 duration-200 ${
-                      isActive ? "text-orange-700" : "text-gray-700"
-                    } border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0 text-lg font-bold`
-                  }
-                >
-                  Register
-                </NavLink>
-              </li>
+              {user ? (
+                <>
+                  <li>
+                    <NavLink
+                      to="/settings"
+                      className={({ isActive }) =>
+                        `block py-2 pr-4 pl-3 duration-200 ${
+                          isActive ? "text-orange-700" : "text-gray-700"
+                        } border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0 text-lg font-bold`
+                      }
+                    >
+                      Settings
+                    </NavLink>
+                  </li>
+                  {/* <li>
+                    <NavLink
+                      to="/signup"
+                      className={({ isActive }) =>
+                        `block py-2 pr-4 pl-3 duration-200 ${
+                          isActive ? "text-orange-700" : "text-gray-700"
+                        } border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0 text-lg font-bold`
+                      }
+                    >
+                      Register
+                    </NavLink>
+                  </li> */}
+                  <p className="cursor-pointer block py-2 pr-4 pl-3 duration-200 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0 text-lg font-bold">
+                    Logout
+                  </p>
+                </>
+              ) : (
+                <>
+                  <li>
+                    <NavLink
+                      to="/login"
+                      className={({ isActive }) =>
+                        `block py-2 pr-4 pl-3 duration-200 ${
+                          isActive ? "text-orange-700" : "text-gray-700"
+                        } border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0 text-lg font-bold`
+                      }
+                    >
+                      Login
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/signup"
+                      className={({ isActive }) =>
+                        `block py-2 pr-4 pl-3 duration-200 ${
+                          isActive ? "text-orange-700" : "text-gray-700"
+                        } border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0 text-lg font-bold`
+                      }
+                    >
+                      Register
+                    </NavLink>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </div>

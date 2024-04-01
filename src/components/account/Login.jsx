@@ -1,7 +1,32 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import useAuth from "../../hooks/useAuth";
+import { useSelector } from "react-redux";
+import { showToast } from "../../utilities/toastCont";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
-  console.log("loginnn");
+  const navigate = useNavigate()
+  const { handleLogin } = useAuth();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const loginUser = (data) => {
+    handleLogin(data);
+  };
+  const error = useSelector((state) => state.auth.userError);
+  if (error) {
+    showToast(error, "error");
+  }
+  const userData = useSelector((state) => state.auth.userData);
+  const successMessage = useSelector((state) => state.auth.userDataSuccess);
+  if (userData) {
+    showToast(successMessage, "success");
+    navigate("/");
+  }
   return (
     <section className="rounded-md bg-black/70 p-2">
       <div className="flex items-center justify-center bg-white px-4 py-10 sm:px-6 sm:py-16 lg:px-8">
@@ -25,15 +50,14 @@ function Login() {
           </h2>
           <p className="mt-2text-sm text-gray-600 ">
             Don&apos;t have an account?{" "}
-            <a
-              href="#"
-              title=""
+            <Link
+              to="/signup"
               className="font-semibold text-black transition-all duration-200 hover:underline"
             >
               Create a free account
-            </a>
+            </Link>
           </p>
-          <form action="#" method="POST" className="mt-8">
+          <form onSubmit={handleSubmit(loginUser)} className="mt-8">
             <div className="space-y-5">
               <div>
                 <label
@@ -41,14 +65,22 @@ function Login() {
                   className="text-base font-medium text-gray-900"
                 >
                   {" "}
-                  Email address{" "}
+                  Email address or Username{" "}
                 </label>
                 <div className="mt-2">
                   <input
                     className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
-                    type="email"
-                    placeholder="Email"
+                    type="text"
+                    placeholder="Email or Username"
+                    {...register("username", {
+                      required: true,
+                    })}
                   ></input>
+                  {errors.username && (
+                    <p className="text-red-700">
+                      Email or Username is required.
+                    </p>
+                  )}
                 </div>
               </div>
               <div>
@@ -60,26 +92,32 @@ function Login() {
                     {" "}
                     Password{" "}
                   </label>
-                  <a
-                    href="#"
-                    title=""
+                  <Link
+                    to="/forgotpassword"
                     className="text-sm font-semibold text-black hover:underline"
                   >
-                    {" "}
                     Forgot password?{" "}
-                  </a>
+                  </Link>
                 </div>
                 <div className="mt-2">
                   <input
                     className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                     type="password"
                     placeholder="Password"
+                    {...register("password", {
+                      required: true,
+                    })}
                   ></input>
+                  {errors.password && (
+                    <p className="text-red-700">
+                      Password is required.
+                    </p>
+                  )}
                 </div>
               </div>
               <div>
                 <button
-                  type="button"
+                  type="submit"
                   className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
                 >
                   Get started

@@ -22,10 +22,13 @@ const postSlice = createSlice({
       state.postsError = false;
     },
     getPostsData: (state, action) => {
-      (state.isPostsLoading = false), (state.allPostsData = action.payload);
+      (state.isPostsLoading = false),
+        (state.allPostsData = action.payload),
+        (state.postsError = null);
     },
     getAllPostsError: (state, action) => {
-      (state.allPostsData = null), (state.postsError = action.payload);
+      state.allPostsData = null;
+      state.postsError = action.payload;
     },
 
     // get a  Single Post By Id
@@ -35,7 +38,8 @@ const postSlice = createSlice({
     },
     getSinglePostData: (state, action) => {
       (state.singlePostLoading = false),
-        (state.singlePostData = action.payload);
+        (state.singlePostData = action.payload),
+        (state.singlePostError = null);
     },
     getSinglePostError: (state, action) => {
       (state.singlePostData = null), (state.singlePostError = action.payload);

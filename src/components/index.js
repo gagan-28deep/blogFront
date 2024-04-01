@@ -7,5 +7,6 @@ import SinglePost from "./post/SinglePost";
 import Loader from "./Loader"
 import Settings from "./account/Settings";
 import ForgotPasswod from "./account/ForgotPassword"
+import ResetPassword from "./account/ResetPassword";
 
-export { Header, Login, Signup, Footer , Write , SinglePost , Loader  , Settings , ForgotPasswod};
+export { Header, Login, Signup, Footer , Write , SinglePost , Loader  , Settings , ForgotPasswod , ResetPassword};

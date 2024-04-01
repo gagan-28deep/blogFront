@@ -20,6 +20,7 @@ const postSlice = createSlice({
     getPostsLoading: (state) => {
       state.isPostsLoading = true;
       state.postsError = false;
+      state.allPostsData = null;
     },
     getPostsData: (state, action) => {
       (state.isPostsLoading = false),
@@ -29,11 +30,13 @@ const postSlice = createSlice({
     getAllPostsError: (state, action) => {
       state.allPostsData = null;
       state.postsError = action.payload;
+      state.isPostsLoading = false;
     },
 
     // get a  Single Post By Id
     getSinglePostLoading: (state) => {
       state.singlePostLoading = true;
+      state.singlePostData = false;
       state.singlePostError = false;
     },
     getSinglePostData: (state, action) => {
@@ -42,7 +45,9 @@ const postSlice = createSlice({
         (state.singlePostError = null);
     },
     getSinglePostError: (state, action) => {
-      (state.singlePostData = null), (state.singlePostError = action.payload);
+      (state.singlePostData = null),
+        (state.singlePostError = action.payload),
+        (state.singlePostLoading = false);
     },
   },
 });

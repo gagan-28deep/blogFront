@@ -2,9 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import { useSelector } from "react-redux";
-import { showToast } from "../../utilities/toastCont";
-import { useNavigate } from "react-router-dom";
-
+import { Loader } from "../index";
 function Signup() {
   const [profileImage, setProfileImage] = React.useState(null);
 
@@ -14,7 +12,6 @@ function Signup() {
     setProfileImage(file);
   };
 
-  const navigate = useNavigate();
   const { handleSignUp } = useAuth();
   const {
     register,
@@ -30,23 +27,13 @@ function Signup() {
     // formData.append("email", data.email);
     // formData.append("username", data.username);
     // formData.append("password", data.password);
-  
+
     // console.log("FormData:", formData);
 
     // handleSignUp({...data , profileImage});
-    handleSignUp(data)
+    handleSignUp(data);
   };
-  const error = useSelector((state) => state.auth.userError);
-  if (error) {
-    showToast(error, "error");
-  }
-  const userData = useSelector((state) => state.auth.userData);
-  const successMessage = useSelector((state) => state.auth.userDataSuccess);
-  if (userData) {
-    showToast(successMessage, "success");
-    navigate("/");
-  }
-
+  const isLoading = useSelector((state) => state.auth.userLoading);
   return (
     <section>
       <div className="grid grid-cols-1 lg:grid-cols-2">
@@ -209,6 +196,7 @@ function Signup() {
                 </div>
               </div>
             </form>
+            {isLoading && <Loader />}
           </div>
         </div>
         <div className="h-full w-full">

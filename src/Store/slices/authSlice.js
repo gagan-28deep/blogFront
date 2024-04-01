@@ -5,7 +5,7 @@ const initialState = {
   userLoading: false,
   userData: null,
   userError: null,
-  userDataSuccess: false,
+  userDataSuccess: null,
 };
 
 const authSlice = createSlice({
@@ -14,7 +14,9 @@ const authSlice = createSlice({
   reducers: {
     // Get User
     getUserLoading: (state) => {
-      (state.userLoading = true), (state.userData = false);
+      (state.userLoading = true),
+        (state.userData = null),
+        (state.userError = null);
     },
     getUserData: (state, action) => {
       state.userData = action.payload;
@@ -22,7 +24,9 @@ const authSlice = createSlice({
       state.userLoading = false;
     },
     getUserError: (state, action) => {
-      (state.userData = null), (state.userError = action.payload);
+      (state.userData = null),
+        (state.userError = action.payload),
+        (state.userLoading = false);
     },
     getUserDataSuccess: (state, action) => {
       state.userDataSuccess = action.payload;

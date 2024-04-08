@@ -1,17 +1,23 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getUserData,
   getUserDataSuccess,
   getUserError,
   getUserLoading,
+  setAccessToken,
+  setIsAuthenticated,
+  setRefreshToken,
 } from "../Store/slices/authSlice";
 
 import { signup } from "../service/auth/signup";
 import { login } from "../service/auth/login";
+import {logout} from "../service/auth/logout"
 import { showToast } from "../utilities/toastCont";
 import { useNavigate } from "react-router-dom";
+import { removeStorage, setStorage } from "../service/storageService";
 
 const useAuth = () => {
+  const accessToken = useSelector((state)=>state.auth.accessToken)
   const navigate = useNavigate();
   const dispatch = useDispatch();
   // SignUp
@@ -32,7 +38,13 @@ const useAuth = () => {
     try {
       dispatch(getUserLoading());
       const response = await login(data);
+      setStorage("user" , response?.data?.data)
+      setStorage("accessToken", response?.data?.data?.accessToken);
+      setStorage("refreshToken" , response?.data?.data?.refreshToken)
       dispatch(getUserData(response?.data?.data));
+      dispatch(setAccessToken(response?.data?.data?.accessToken))
+      dispatch(setRefreshToken(response?.data?.data?.refreshToken))
+      dispatch(setIsAuthenticated(true))
       dispatch(getUserDataSuccess(response?.data?.message));
       showToast(response?.data?.message, "success");
       navigate("/");
@@ -41,7 +53,26 @@ const useAuth = () => {
       showToast(error?.response?.data?.message, "error");
     }
   };
-  return { handleSignUp, handleLogin };
+
+  const handleLogout = async ()=>{
+    try {
+      const headers = {
+        Authorization : `Bearer ${accessToken}`
+      }
+      const response = await logout(headers)
+      if(response){
+        dispatch(getUserData(response?.data?.data))
+        removeStorage("accessToken")
+        removeStorage("refreshToken")
+        removeStorage("user")
+        navigate("/login")
+        showToast(response?.data?.message , "success")
+      }
+    } catch (error) {
+      console.log("err" , error);
+    }
+  }
+  return { handleSignUp, handleLogin , handleLogout };
 };
 
 export default useAuth;

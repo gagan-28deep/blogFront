@@ -9,7 +9,7 @@ const createSecureAxiosClient = (baseURL) => {
   });
   instance.interceptors.request.use(
     (config) => {
-      const token = getStorage("access_token", { decrypt: true });
+      const token = getStorage("accessToken", { decrypt: true });
       config.headers.Authorization = token ? `${token}` : "";
       return config;
     },
@@ -40,18 +40,18 @@ const createSecureAxiosClient = (baseURL) => {
   async function refreshAccessToken() {
     let newAccessToken = null;   
     try {
-      const refreshToken = getStorage('refresh_token', { decrypt: true });
-      newAccessToken = await axios.post(`${url}/refreshToken`,
+      const refreshToken = getStorage('refreshToken', { decrypt: true });
+      newAccessToken = await axios.post(`${url}/user/refresh-token`,
         {
           refreshToken,
         });  
-        
-        setStorage('access_token', newAccessToken?.data?.access_token);
+        console.log("newww" , newAccessToken);
+        // setStorage('access_token', newAccessToken?.data?.access_token);
     } catch (error) {
       console.log("========================refreshToken================================");
       console.log(error);
-      removeStorage("access_token");
-      removeStorage("refresh_token");   
+      removeStorage("accessToken");
+      removeStorage("refreshToken");   
      window.location.href = "/login";
       return;
       

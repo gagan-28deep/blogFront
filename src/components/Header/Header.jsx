@@ -1,13 +1,19 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
-
+import useAuth from "../../hooks/useAuth";
 export default function Header() {
+  const {handleLogout} = useAuth()
   const [showOptions, setShowOptions] = React.useState(false);
 
   const handleProfileClick = () => {
     setShowOptions(!showOptions);
   };
+
+  const handleUserLogout =async ()=>{
+    await handleLogout()
+    window.location.href = "/login";
+  }
 
   const user = useSelector((state) => state.auth.userData);
   return (
@@ -132,7 +138,7 @@ export default function Header() {
                       Register
                     </NavLink>
                   </li> */}
-                  <p className="cursor-pointer block py-2 pr-4 pl-3 duration-200 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0 text-lg font-bold">
+                  <p onClick={handleUserLogout} className="cursor-pointer block py-2 pr-4 pl-3 duration-200 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0 text-lg font-bold">
                     Logout
                   </p>
                 </>

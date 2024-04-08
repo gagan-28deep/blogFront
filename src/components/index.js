@@ -8,5 +8,6 @@ import Loader from "./Loader"
 import Settings from "./account/Settings";
 import ForgotPasswod from "./account/ForgotPassword"
 import ResetPassword from "./account/ResetPassword";
+import AuthLayout from "./AuthLayout"
 
-export { Header, Login, Signup, Footer , Write , SinglePost , Loader  , Settings , ForgotPasswod , ResetPassword};
+export { Header, Login, Signup, Footer , Write , SinglePost , Loader  , Settings , ForgotPasswod , ResetPassword , AuthLayout};

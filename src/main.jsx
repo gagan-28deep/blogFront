@@ -15,6 +15,7 @@ import { ToastContainer } from "react-toastify";
 import SettingsPage from "./pages/SettingsPage.jsx";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage.jsx";
 import ResetPasswordPage from "./pages/ResetPasswordPage.jsx";
+import {AuthLayout} from "./components/index.js"
 const router = createBrowserRouter([
   {
     path: "/",
@@ -22,35 +23,67 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: (
+          <AuthLayout authentication = {false}>
+            <Home/>
+          </AuthLayout>
+        )
       },
       {
         path: "signup",
-        element: <Signup />,
+        element: (
+          <AuthLayout authentication = {false}>
+            <Signup/>
+          </AuthLayout>
+        )
       },
       {
         path: "login",
-        element: <Login />,
+        element: (
+          <AuthLayout authentication = {false}>
+            <Login/>
+          </AuthLayout>
+        )
       },
       {
         path: "write",
-        element: <Write />,
+        element: (
+          <AuthLayout authentication = {true}>
+            <Write/>
+          </AuthLayout>
+        )
       },
       {
         path: "post/:id",
-        element: <SinglePostPage />,
+        element: (
+          <AuthLayout authentication = {false}>
+            <SinglePostPage/>
+          </AuthLayout>
+        )
       },
       {
         path: "settings",
-        element: <SettingsPage />,
+        element: (
+          <AuthLayout authentication = {true}>
+            <SettingsPage/>
+          </AuthLayout>
+        )
       },
       {
         path: "forgotpassword",
-        element: <ForgotPasswordPage />,
+        element: (
+          <AuthLayout authentication = {true}>
+            <ForgotPasswordPage/>
+          </AuthLayout>
+        )
       },
       {
         path: "reset-password",
-        element: <ResetPasswordPage />,
+        element: (
+          <AuthLayout authentication = {true}>
+            <ResetPasswordPage/>
+          </AuthLayout>
+        )
       },
     ],
   },

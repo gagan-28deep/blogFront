@@ -61,6 +61,9 @@ const useAuth = () => {
       }
       const response = await logout(headers)
       if(response){
+        dispatch(setAccessToken(null))
+        dispatch(setIsAuthenticated(false))
+        dispatch(setRefreshToken(null))
         dispatch(getUserData(response?.data?.data))
         removeStorage("accessToken")
         removeStorage("refreshToken")

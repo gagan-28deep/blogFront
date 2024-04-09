@@ -3,12 +3,13 @@ import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
 import { useSelector } from "react-redux";
 import { Loader } from "../index";
+import { Link } from "react-router-dom";
+import UserAvatar from "../../assets/UserAvatar.png"
 function Signup() {
   const [profileImage, setProfileImage] = React.useState(null);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    console.log("file", file);
     setProfileImage(file);
   };
 
@@ -21,17 +22,17 @@ function Signup() {
 
   const signupUser = async (data) => {
     // SignUp User
-    // const formData = new FormData();
-    // formData.append("profileImage", profileImage);
-    // formData.append("name" , data?.name)
-    // formData.append("email", data.email);
-    // formData.append("username", data.username);
-    // formData.append("password", data.password);
+    const formData = new FormData();
+    formData.append("profileImage", profileImage);
+    formData.append("name" , data?.name)
+    formData.append("email", data.email);
+    formData.append("username", data.username);
+    formData.append("password", data.password);
 
-    // console.log("FormData:", formData);
 
+    handleSignUp(formData)
     // handleSignUp({...data , profileImage});
-    handleSignUp(data);
+    // handleSignUp(data);
   };
   const isLoading = useSelector((state) => state.auth.userLoading);
   return (
@@ -44,13 +45,9 @@ function Signup() {
             </h2>
             <p className="mt-2 text-base text-gray-600">
               Already have an account?{" "}
-              <a
-                href="#"
-                title=""
-                className="font-medium text-black transition-all duration-200 hover:underline"
-              >
+              <Link className="font-medium text-black transition-all duration-200 hover:underline" to="/login">
                 Sign In
-              </a>
+              </Link>
             </p>
             <form onSubmit={handleSubmit(signupUser)} className="mt-8">
               <div className="space-y-5">
@@ -153,6 +150,25 @@ function Signup() {
                     ></input>
                   </div>
                 </div> */}
+
+              <div>
+                <div className="flex items-center justify-between">
+                  <label
+                    htmlFor="profileImage"
+                    className="text-base font-medium text-gray-900"
+                  >
+                    Profile Image
+                  </label>
+                </div>
+                <div className="mt-2">
+                  <input
+                   className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                    type="file"
+                    id="profileImage"
+                    onChange={handleImageChange}
+                  />
+                </div>
+              </div>
 
                 <div>
                   <div className="flex items-center justify-between">

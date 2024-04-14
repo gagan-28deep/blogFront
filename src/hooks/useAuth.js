@@ -5,6 +5,7 @@ import {
   getUserError,
   getUserLoading,
   getUserPasswordFailure,
+  getUserPasswordLoading,
   getUserPasswordSuccess,
   setAccessToken,
   setIsAuthenticated,
@@ -85,6 +86,7 @@ const useAuth = () => {
         Authorization : `Bearer ${accessToken}`
       }
       const response = await resetPassword(data , headers)
+      dispatch(getUserPasswordLoading())
       dispatch(getUserPasswordSuccess(true))
       showToast(response?.data?.message, "success");
     } catch (error) {

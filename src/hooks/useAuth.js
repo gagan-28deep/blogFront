@@ -4,6 +4,8 @@ import {
   getUserDataSuccess,
   getUserError,
   getUserLoading,
+  getUserPasswordFailure,
+  getUserPasswordSuccess,
   setAccessToken,
   setIsAuthenticated,
   setRefreshToken,
@@ -12,6 +14,7 @@ import {
 import { signup } from "../service/auth/signup";
 import { login } from "../service/auth/login";
 import {logout} from "../service/auth/logout"
+import {resetPassword} from "../service/auth/resetPassword"
 import { showToast } from "../utilities/toastCont";
 import { useNavigate } from "react-router-dom";
 import { removeStorage, setStorage } from "../service/storageService";
@@ -74,7 +77,22 @@ const useAuth = () => {
       console.log("err" , error);
     }
   }
-  return { handleSignUp, handleLogin , handleLogout };
+
+  // Reset Password
+  const handleResetPassword = async(data)=>{
+    try {
+      const headers = {
+        Authorization : `Bearer ${accessToken}`
+      }
+      const response = await resetPassword(data , headers)
+      dispatch(getUserPasswordSuccess(true))
+      showToast(response?.data?.message, "success");
+    } catch (error) {
+      dispatch(getUserPasswordFailure(true))
+      showToast(error?.response?.data?.message, "error");
+    }
+  }
+  return { handleSignUp, handleLogin , handleLogout , handleResetPassword };
 };
 
 export default useAuth;

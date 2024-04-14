@@ -68,7 +68,6 @@ const useAuth = () => {
         removeStorage("accessToken")
         removeStorage("refreshToken")
         removeStorage("user")
-        navigate("/login")
         showToast(response?.data?.message , "success")
       }
     } catch (error) {

@@ -2,8 +2,12 @@
 import { ArrowRight } from 'lucide-react'
 import useAuth from "../../hooks/useAuth"
 import {useForm} from "react-hook-form"
+import { useSelector } from 'react-redux'
+import {Loader} from "../index"
 
 export default function ResetPassword() {
+  const userPassLoading = useSelector((state)=>state?.auth?.userPasswordLoading)
+  console.log("u" , userPassLoading);
   const {handleResetPassword} = useAuth()
   const {handleSubmit , register ,watch ,  formState : {errors}} = useForm()
   const handleUserResetPassword = (data)=>{
@@ -115,6 +119,7 @@ export default function ResetPassword() {
               </div>
             </div>
           </form>
+          {userPassLoading && (<Loader />)}
         </div>
       </div>
     </section>

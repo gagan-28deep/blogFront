@@ -9,6 +9,11 @@ const initialState = {
   accessToken: null,
   refreshToken : null,
   isAuthenticated: false,
+
+  // User Password (reset and forgot)
+  userPasswordSuccess : false,
+  userPasswordFailure : false
+  
 };
 
 const authSlice = createSlice({
@@ -42,6 +47,14 @@ const authSlice = createSlice({
     },
     setRefreshToken : (state , action)=>{
       state.refreshToken = action.payload
+    },
+
+    // User Password
+    getUserPasswordSuccess : (state , action)=>{
+      state.userPasswordSuccess = action.payload
+    },
+    getUserPasswordFailure : (state , action)=>{
+      state.userPasswordFailure = action.payload
     }
   },
 });
@@ -53,7 +66,9 @@ export const {
   getUserDataSuccess,
   setAccessToken,
   setIsAuthenticated,
-  setRefreshToken
+  setRefreshToken,
+  getUserPasswordFailure,
+  getUserPasswordSuccess
 } = authSlice.actions;
 
 export default authSlice.reducer;

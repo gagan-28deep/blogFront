@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
@@ -12,10 +12,11 @@ export default function Header() {
 
   const handleUserLogout =async ()=>{
     await handleLogout()
-    window.location.href = "/login";
+    // window.location.href = "/login";
   }
 
   const user = useSelector((state) => state.auth.userData);
+  useEffect(()=>{} , [user])
   return (
     <header className="shadow sticky z-50 top-0">
       <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5">
